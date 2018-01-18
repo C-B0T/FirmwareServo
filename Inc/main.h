@@ -57,6 +57,8 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define DIO1_Pin GPIO_PIN_0
+#define DIO1_GPIO_Port GPIOA
 #define DIO2_Pin GPIO_PIN_1
 #define DIO2_GPIO_Port GPIOA
 #define DIO3_Pin GPIO_PIN_2

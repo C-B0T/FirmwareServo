@@ -79,9 +79,9 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PA0 PAPin PAPin PAPin 
+  /*Configure GPIO pins : PAPin PAPin PAPin PAPin 
                            PAPin */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|DIO2_Pin|DIO3_Pin|DIO4_Pin 
+  GPIO_InitStruct.Pin = DIO1_Pin|DIO2_Pin|DIO3_Pin|DIO4_Pin 
                           |DIO5_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
