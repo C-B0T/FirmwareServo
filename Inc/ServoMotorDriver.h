@@ -52,13 +52,13 @@ void ServoMotor_Disable (enum ServoMotor servo);
 
 /**
  * @brief Set servo position
- * @param angle in microsec
+ * @param angle in usec
  */
 void ServoMotor_SetPosition_usec (enum ServoMotor servo, uint16_t usec);
 
 /**
  * @brief Set servo position
- * @param angle : degre [-90Â° to 90Â°]
+ * @param angle : degree [-90° to 90°]
  */
 void ServoMotor_SetPosition (enum ServoMotor servo, int16_t angle);
 
