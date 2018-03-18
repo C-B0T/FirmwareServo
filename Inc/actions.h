@@ -7,13 +7,8 @@
 
 /**
  *    CMD     | OPCOD | / | L | DATA0   DATA1   DATA2   DATA3      |    Comments
- * Get Inputs	0x05	R	2	Input 1	Input 2					        Ana : 0 à 255	TOR : 0 ou 255
- * Set mode	    0x10	W	1	Mode						            1 2 4 8 16
- * Set speed	0x11	W	2	speed_l	speed_h					        step / s
- * Set acc/dec	0x12	W	4	acc_l	acc_h	dec_l	dec_h			step / s²
- * Do steps	    0x13	W	3	step_ll	step_l	step_h	step_hh
- * Go	        0x14	W	1	0x55
- * Stop	        0x15	W	1	0x55
+ * Get Inputs	0x05	R	16	Input 1	Input 2	Input 3	Input 4			Ana : 0 à 255	TOR : 0 ou 255
+ * Set angle	0x10	W	2	unit	angle					        0 : 1ms  255 : 2ms
  *
  */
 

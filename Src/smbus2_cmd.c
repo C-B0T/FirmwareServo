@@ -146,10 +146,9 @@ callback_t TabCallback[] = {
 	{0x15, NULL},        /* Stop */
 	#endif
 
-	#ifdef POWEROUT
-	/* Stepper */
-	{0x10, NULL},    /* Set  */
-	{0x11, NULL},    /* Set  */
+	#ifdef SERVO
+	/* Servo */
+	{0x10, NULL},    /* Set Angle */
 	#endif
 
 	{0xFF, NULL},        /* Tab end */

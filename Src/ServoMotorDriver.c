@@ -20,11 +20,11 @@
 /* Configuration                                                              */
 /*----------------------------------------------------------------------------*/
 
-#define USE_SERVO1
+//#define USE_SERVO1
 //#define USE_SERVO2
 //#define USE_SERVO3
 //#define USE_SERVO4
-//#define USE_SERVO5
+#define USE_SERVO5
 
 
 /*----------------------------------------------------------------------------*/

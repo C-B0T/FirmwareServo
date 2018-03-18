@@ -83,6 +83,10 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+  extern char end asm("end");
+  extern char estack asm("_estack");
+  static char *heap_start = &end;
+  static char *ram_end = &estack;
 
   /* USER CODE END 1 */
 
@@ -106,11 +110,22 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C1_SMBUS_Init();
   MX_USART1_UART_Init();
-  MX_TIM6_Init();
   MX_TIM2_Init();
+  MX_TIM3_Init();
 
   /* USER CODE BEGIN 2 */
 
+  // TU TU TU TU TU TU TU TU TU TU
+  HAL_TIM_PWM_Start_IT(&htim3, TIM_CHANNEL_2);
+//  HAL_GPIO_WritePin(DIO5_GPIO_Port, DIO5_Pin, GPIO_PIN_SET);
+
+  // TU TU TU TU TU TU TU TU TU TU
+
+
+  // Welcome
+  printf("FirmwareServo (" __DATE__ " - " __TIME__ ")\r\n");
+  printf("  heap_start = %p\r\n", heap_start);
+  printf("  ram_end    = %p\r\n", ram_end);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -148,10 +163,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = 16;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL12;
-  RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -161,11 +173,11 @@ void SystemClock_Config(void)
     */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
