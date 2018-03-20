@@ -148,7 +148,7 @@ callback_t TabCallback[] = {
 
 	#ifdef SERVO
 	/* Servo */
-	{0x10, NULL},    /* Set Angle */
+	{0x10, SetAngle},    /* Set Angle */
 	#endif
 
 	{0xFF, NULL},        /* Tab end */
