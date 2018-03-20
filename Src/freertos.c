@@ -53,21 +53,27 @@
 
 /* USER CODE BEGIN Includes */     
 #include "main.h"
-#include "gpio.h"
+#include "usart.h"
+
+#include "traces.h"
+#include "status.h"
+#include "actions.h"
 
 /* USER CODE END Includes */
 
 /* Variables -----------------------------------------------------------------*/
-osThreadId defaultTaskHandle;
-osThreadId blinkTaskHandle;
+osThreadId mainTaskHandle;
+osThreadId tracesTaskHandle;
+osThreadId statusTaskHandle;
 
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
 
 /* Function prototypes -------------------------------------------------------*/
-void StartDefaultTask(void const * argument);
-void StartBlinkTask(void const * argument);
+void StartMainTask(void const * argument);
+void StartTracesTask(void const * argument);
+void StartStatusTask(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -97,13 +103,17 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the thread(s) */
-  /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  /* definition and creation of mainTask */
+  osThreadDef(mainTask, StartMainTask, osPriorityNormal, 0, 128);
+  mainTaskHandle = osThreadCreate(osThread(mainTask), NULL);
 
-  /* definition and creation of blinkTask */
-  osThreadDef(blinkTask, StartBlinkTask, osPriorityIdle, 0, 128);
-  blinkTaskHandle = osThreadCreate(osThread(blinkTask), NULL);
+  /* definition and creation of tracesTask */
+  osThreadDef(tracesTask, StartTracesTask, osPriorityIdle, 0, 128);
+  tracesTaskHandle = osThreadCreate(osThread(tracesTask), NULL);
+
+  /* definition and creation of statusTask */
+  osThreadDef(statusTask, StartStatusTask, osPriorityIdle, 0, 128);
+  statusTaskHandle = osThreadCreate(osThread(statusTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -114,33 +124,46 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_QUEUES */
 }
 
-/* StartDefaultTask function */
-void StartDefaultTask(void const * argument)
+/* StartMainTask function */
+void StartMainTask(void const * argument)
 {
 
-  /* USER CODE BEGIN StartDefaultTask */
+  /* USER CODE BEGIN StartMainTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    Update_Process();
+    osDelay(10);
+  }
+  /* USER CODE END StartMainTask */
+}
+
+/* StartTracesTask function */
+void StartTracesTask(void const * argument)
+{
+  /* USER CODE BEGIN StartTracesTask */
+  Traces_Init(&huart1);
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
+    Traces_Process();
   }
-  /* USER CODE END StartDefaultTask */
+  /* USER CODE END StartTracesTask */
 }
 
-/* StartBlinkTask function */
-void StartBlinkTask(void const * argument)
+/* StartStatusTask function */
+void StartStatusTask(void const * argument)
 {
-  /* USER CODE BEGIN StartBlinkTask */
+  /* USER CODE BEGIN StartStatusTask */
+  Status_Init(LED1_GPIO_Port, LED1_Pin);
   /* Infinite loop */
   for(;;)
   {
-	//osDelay(1000);
-	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
-	osDelay(250);
-	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
-	osDelay(250);
+	Status_Process(xTaskGetTickCount());
+	osDelay(10);
   }
-  /* USER CODE END StartBlinkTask */
+  /* USER CODE END StartStatusTask */
 }
 
 /* USER CODE BEGIN Application */
