@@ -106,23 +106,23 @@ void SetAngle(uint8_t len, uint8_t *buff)
 	switch (unit)
 	{
 		case 0x01:
-			__HAL_TIM_SetCompare(SERVO_TIM_1234, TIM_CHANNEL_1, pwm);
+			__HAL_TIM_SET_COMPARE(SERVO_TIM_1234, TIM_CHANNEL_1, pwm);
 			HAL_TIM_PWM_Start_IT(SERVO_TIM_1234, TIM_CHANNEL_1);
 			break;
 		case 0x02:
-			__HAL_TIM_SetCompare(SERVO_TIM_1234, TIM_CHANNEL_2, pwm);
+			__HAL_TIM_SET_COMPARE(SERVO_TIM_1234, TIM_CHANNEL_2, pwm);
 			HAL_TIM_PWM_Start_IT(SERVO_TIM_1234, TIM_CHANNEL_2);
 			break;
 		case 0x03:
-			__HAL_TIM_SetCompare(SERVO_TIM_1234, TIM_CHANNEL_3, pwm);
+			__HAL_TIM_SET_COMPARE(SERVO_TIM_1234, TIM_CHANNEL_3, pwm);
 			HAL_TIM_PWM_Start_IT(SERVO_TIM_1234, TIM_CHANNEL_3);
 			break;
 		case 0x04:
-			__HAL_TIM_SetCompare(SERVO_TIM_1234, TIM_CHANNEL_4, pwm);
+			__HAL_TIM_SET_COMPARE(SERVO_TIM_1234, TIM_CHANNEL_4, pwm);
 			HAL_TIM_PWM_Start_IT(SERVO_TIM_1234, TIM_CHANNEL_4);
 			break;
 		case 0x05:
-			__HAL_TIM_SetCompare(SERVO_TIM_5, TIM_CHANNEL_2, pwm);
+			__HAL_TIM_SET_COMPARE(SERVO_TIM_5, TIM_CHANNEL_2, pwm);
 			HAL_TIM_PWM_Start_IT(SERVO_TIM_5, TIM_CHANNEL_2);
 			break;
 		default:
