@@ -56,7 +56,7 @@ uint8_t Inputs_ADC_Read (enum input dio)
 
 	// Convert Analog to Digital
 	HAL_ADC_Start(&hadc);
-	HAL_ADC_PollForConversion(&hadc, 0xFFFFFFFF);
+	HAL_ADC_PollForConversion(&hadc, 1);	// Timeout: 1ms
 	val = HAL_ADC_GetValue(&hadc);
 
 	// Disable the channel

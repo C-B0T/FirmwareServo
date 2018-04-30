@@ -118,8 +118,16 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   // TU TU TU TU TU TU TU TU TU TU
+
+  HAL_Delay(2000);
   HAL_TIM_PWM_Start_IT(&htim3, TIM_CHANNEL_2);
-//  HAL_GPIO_WritePin(DIO5_GPIO_Port, DIO5_Pin, GPIO_PIN_SET);
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 8);
+  HAL_Delay(4000);
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 11);
+  HAL_Delay(4000);
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 8);
+//  while(1);
+  //  HAL_GPIO_WritePin(DIO5_GPIO_Port, DIO5_Pin, GPIO_PIN_SET);
 
   // TU TU TU TU TU TU TU TU TU TU
 

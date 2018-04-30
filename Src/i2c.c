@@ -66,7 +66,7 @@ void MX_I2C1_SMBUS_Init(void)
   hsmbus1.Instance = I2C1;
   hsmbus1.Init.Timing = 0x2000090E;
   hsmbus1.Init.AnalogFilter = SMBUS_ANALOGFILTER_ENABLE;
-  hsmbus1.Init.OwnAddress1 = 2;
+  hsmbus1.Init.OwnAddress1 = 98;
   hsmbus1.Init.AddressingMode = SMBUS_ADDRESSINGMODE_7BIT;
   hsmbus1.Init.DualAddressMode = SMBUS_DUALADDRESS_DISABLE;
   hsmbus1.Init.OwnAddress2 = 0;
@@ -106,6 +106,10 @@ void HAL_SMBUS_MspInit(SMBUS_HandleTypeDef* smbusHandle)
 
     /* I2C1 clock enable */
     __HAL_RCC_I2C1_CLK_ENABLE();
+
+    /* I2C1 interrupt Init */
+    HAL_NVIC_SetPriority(I2C1_IRQn, 3, 0);
+    HAL_NVIC_EnableIRQ(I2C1_IRQn);
   /* USER CODE BEGIN I2C1_MspInit 1 */
 
   /* USER CODE END I2C1_MspInit 1 */
@@ -129,6 +133,8 @@ void HAL_SMBUS_MspDeInit(SMBUS_HandleTypeDef* smbusHandle)
     */
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_6|GPIO_PIN_7);
 
+    /* I2C1 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(I2C1_IRQn);
   /* USER CODE BEGIN I2C1_MspDeInit 1 */
 
   /* USER CODE END I2C1_MspDeInit 1 */
