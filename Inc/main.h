@@ -67,8 +67,6 @@
 #define DIO4_GPIO_Port GPIOA
 #define DIO5_Pin GPIO_PIN_7
 #define DIO5_GPIO_Port GPIOA
-#define FLAG_Pin GPIO_PIN_0
-#define FLAG_GPIO_Port GPIOB
 #define LED1_Pin GPIO_PIN_8
 #define LED1_GPIO_Port GPIOA
 #define S_AU_Pin GPIO_PIN_5

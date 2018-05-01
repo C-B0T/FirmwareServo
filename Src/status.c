@@ -52,7 +52,7 @@ void Status_Process(uint32_t time)
     
     uint16_t local_time = 0;
     uint16_t period = 0;
-	uint8_t status = 0;
+    uint8_t status = 0;
     
     local_time = time - t0;
     
@@ -62,17 +62,17 @@ void Status_Process(uint32_t time)
     else
         period = STATUS_PERIOD_OKAY;
 
-	if(local_time <= period/2U)
-		HAL_GPIO_WritePin(_GPIOx, _GPIO_Pin, GPIO_PIN_SET);
-	else
-		HAL_GPIO_WritePin(_GPIOx, _GPIO_Pin, GPIO_PIN_RESET);
+    if(local_time <= period/2U)
+        HAL_GPIO_WritePin(_GPIOx, _GPIO_Pin, GPIO_PIN_SET);
+    else
+        HAL_GPIO_WritePin(_GPIOx, _GPIO_Pin, GPIO_PIN_RESET);
 
     if(local_time >= period)
         t0 = time;
 
-	// Update status in smbus tab
-	status = Status_GetStatus();
-	smbus2_cmd_SetData(0x04, 1U, &status);
+    // Update status in smbus tab
+    status = Status_GetStatus();
+    smbus2_cmd_SetData(0x04, 1U, &status);
 }
 
 uint8_t Status_GetStatus(void)

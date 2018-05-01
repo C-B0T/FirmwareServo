@@ -64,7 +64,7 @@ void MX_I2C1_SMBUS_Init(void)
 {
 
   hsmbus1.Instance = I2C1;
-  hsmbus1.Init.Timing = 0x2000090E;
+  hsmbus1.Init.Timing = 0x00303D5B;
   hsmbus1.Init.AnalogFilter = SMBUS_ANALOGFILTER_ENABLE;
   hsmbus1.Init.OwnAddress1 = 98;
   hsmbus1.Init.AddressingMode = SMBUS_ADDRESSINGMODE_7BIT;
@@ -75,7 +75,7 @@ void MX_I2C1_SMBUS_Init(void)
   hsmbus1.Init.NoStretchMode = SMBUS_NOSTRETCH_DISABLE;
   hsmbus1.Init.PacketErrorCheckMode = SMBUS_PEC_DISABLE;
   hsmbus1.Init.PeripheralMode = SMBUS_PERIPHERAL_MODE_SMBUS_SLAVE;
-  hsmbus1.Init.SMBusTimeout = 0x00008061;
+  hsmbus1.Init.SMBusTimeout = 0x000080C3;
   if (HAL_SMBUS_Init(&hsmbus1) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
