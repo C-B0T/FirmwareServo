@@ -18,7 +18,7 @@
 void Inputs_Init (void)
 {
 	// Init ADC inputs
-	ADC_ChannelConfTypeDef sConfig = {DIO1_CHANNEL | DIO2_CHANNEL | DIO3_CHANNEL | DIO4_CHANNEL | DIO5_CHANNEL, ADC_RANK_NONE};
+	ADC_ChannelConfTypeDef sConfig = {DIO1_CHANNEL | DIO2_CHANNEL | DIO3_CHANNEL | DIO4_CHANNEL | DIO5_CHANNEL, ADC_RANK_NONE, ADC_SAMPLETIME_1CYCLE_5};
 	HAL_ADC_ConfigChannel(&hadc, &sConfig);
 
 	// Init other special inputs
@@ -27,7 +27,7 @@ void Inputs_Init (void)
 uint8_t Inputs_ADC_Read (enum input dio)
 {
 	uint8_t val = 0;
-	ADC_ChannelConfTypeDef sConfig = {0};
+	ADC_ChannelConfTypeDef sConfig = {0, ADC_RANK_NONE, ADC_SAMPLETIME_1CYCLE_5};
 
 	switch (dio)
 	{

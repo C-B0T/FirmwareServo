@@ -118,6 +118,7 @@ int main(void)
   MX_ADC_Init();
 
   /* USER CODE BEGIN 2 */
+  Inputs_Init();
   smbus2_Init(&hsmbus1);
 //  ServoMotor_Init();
 
@@ -126,13 +127,13 @@ int main(void)
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
   HAL_Delay(2000);
   HAL_TIM_PWM_Start_IT(&htim3, TIM_CHANNEL_2);
-  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 16);
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 1600);
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
   HAL_Delay(4000);
-  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 24);
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 1850);
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
   HAL_Delay(4000);
-  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 16);
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 1600);
 
 
   //  HAL_GPIO_WritePin(DIO5_GPIO_Port, DIO5_Pin, GPIO_PIN_SET);

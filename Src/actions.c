@@ -11,6 +11,7 @@
 #include "tim.h"
 #include "smbus2_cmd.h"
 #include "status.h"
+#include "inputs.h"
 
 /*----------------------------------------------------------------------------*/
 /* Definitions                                                                */
@@ -35,13 +36,22 @@ static uint8_t _emergencyStop = false;
 void _readInputs(void)
 {
 	GPIO_PinState input[4] = {GPIO_PIN_RESET};
+	volatile uint8_t val = 0;
 	uint8_t buff[4] = {0};
 	int16_t i = 0;
 
+	// TOR
 	input[0] = HAL_GPIO_ReadPin(DIO1_GPIO_Port, DIO1_Pin);
 	input[1] = HAL_GPIO_ReadPin(DIO2_GPIO_Port, DIO2_Pin);
 	input[2] = HAL_GPIO_ReadPin(DIO3_GPIO_Port, DIO3_Pin);
 	input[3] = HAL_GPIO_ReadPin(DIO4_GPIO_Port, DIO4_Pin);
+
+	// ANALOG
+	val = Inputs_ADC_Read(DIO4);
+	val = Inputs_ADC_Read(DIO3);
+	val = Inputs_ADC_Read(DIO2);
+	val = Inputs_ADC_Read(DIO1);
+
 
 	for(i = 0 ; i < 4 ; i++) {
 		if(input[i] == GPIO_PIN_RESET)
@@ -92,16 +102,18 @@ void SetAngle(uint8_t len, uint8_t *buff)
 	uint8_t unit    = buff[0];
 	uint8_t angle   = buff[1];
 
-	/* TODO : Bad precision
+	/* NOTE
 		IN Values  : 0 to 255
-		OUT Values : 8 + (0 to 8)
-		Factor : 32
-		   8pwm = 1.0ms 
-		  12pwm = 1.5ms
-		  16pwm = 2.0ms 
+		OUT Values : 1600 + (0 to 1600)
+		Min : 1600 +  250 = 1850pwm
+		Max : 1600 + 1020 = 2620pwm
+		  1600pwm = 1.0ms
+		  2400pwm = 1.5ms
+		  3200pwm = 2.0ms
 	*/
 	
-	uint16_t pwm = 8U + ((uint16_t)angle+1U) / 32U;
+	uint16_t val = (uint16_t)angle * 4U;	// Convert [0 to 255] to [0 to 1020]
+	uint16_t pwm = 1600U + val;
 	
 	switch (unit)
 	{
